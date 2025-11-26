@@ -1,0 +1,137 @@
+/* Syntax Highlighting Theme - Botanical Dark Mode */
+
+.hljs {
+  background: #1a1a1a;
+  color: #e5e5e5;
+  padding: 0;
+  margin: 0;
+  display: block;
+}
+
+/* Keywords - Secondary Color (default: Bio Green) */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link,
+.hljs-title {
+  color: var(--bio-secondary, #ccff00);
+  font-weight: 600;
+}
+
+/* Strings - Accent Color (default: light coral) */
+.hljs-string,
+.hljs-title.class_,
+.hljs-title.class_.inherited__ {
+  color: var(--bio-accent, #ff6b6b);
+}
+
+/* Numbers and Booleans - Primary Color (default: orange-red) */
+.hljs-number,
+.hljs-literal {
+  color: var(--bio-primary, #ff3300);
+}
+
+/* Functions - Light blue */
+.hljs-title.function_,
+.hljs-title.function_.invoke__,
+.hljs-attr {
+  color: #99ccff;
+}
+
+/* Variables and attributes - Accent variant */
+.hljs-variable,
+.hljs-template-variable {
+  color: #ffcc99;
+}
+
+/* Comments - Muted gray */
+.hljs-comment,
+.hljs-quote {
+  color: #888888;
+  font-style: italic;
+}
+
+/* Symbols and punctuation - Secondary Color */
+.hljs-symbol,
+.hljs-bullet {
+  color: var(--bio-secondary, #ccff00);
+}
+
+/* Attributes and Tags - Accent Color */
+.hljs-tag,
+.hljs-name,
+.hljs-type {
+  color: var(--bio-accent, #ff6b6b);
+}
+
+/* Built-in classes - Secondary variant */
+.hljs-built_in,
+.hljs-class .hljs-title {
+  color: #99ffcc;
+}
+
+/* Meta/Special - Secondary variant */
+.hljs-meta,
+.hljs-meta .hljs-string {
+  color: #99ffcc;
+}
+
+/* Emphasis */
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+/* Additional syntax highlighting rules for better specificity */
+.language-typescript .hljs-keyword {
+  color: var(--bio-secondary, #ccff00);
+}
+
+.language-typescript .hljs-title {
+  color: #99ccff;
+}
+
+/* Interface/Type definitions - Secondary Color */
+.hljs-keyword:not(.hljs-title.class_) {
+  color: var(--bio-secondary, #ccff00);
+}
+
+/* Ensure good contrast and readability */
+pre.language-typescript {
+  background: #1a1a1a;
+  color: #e5e5e5;
+}
+
+pre.language-typescript code {
+  background: transparent;
+}
+
+/* Hover effects for code area */
+.hljs {
+  transition: all 0.3s ease;
+}
+
+/* Additional styling for code blocks */
+code.hljs {
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+/* Scrollbar styling for code area */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
