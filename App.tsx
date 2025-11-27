@@ -1,25 +1,24 @@
-import React, { useState } from 'react';
+
+import React from 'react';
+import { ThemeProvider } from './contexts/ThemeContext';
+import gradient from './images/gradient.webp';
 import Landing from './views/Landing';
 import Dashboard from './views/Dashboard';
 import Docs from './views/Docs';
-import { ViewState } from './types';
-import { ThemeProvider } from './contexts/ThemeContext';
-import gradient from './images/gradient.webp';
 
-const AppContent: React.FC = () => {
-  const [view, setView] = useState<ViewState>(ViewState.LANDING);
+export const AppContent: React.FC = () => {
+  const [view, setView] = React.useState('LANDING');
 
-  // Simple view switching based on state (SPA)
   const renderView = () => {
     switch (view) {
-      case ViewState.LANDING:
-        return <Landing onEnter={() => setView(ViewState.DASHBOARD)} onDocs={() => setView(ViewState.DOCS)} />;
-      case ViewState.DASHBOARD:
-        return <Dashboard onBack={() => setView(ViewState.LANDING)} onNavigate={(v) => setView(v)} />;
-      case ViewState.DOCS:
-        return <Docs onBack={() => setView(ViewState.LANDING)} />;
+      case 'LANDING':
+        return <Landing onEnter={() => setView('DASHBOARD')} onDocs={() => setView('DOCS')} />;
+      case 'DASHBOARD':
+        return <Dashboard onBack={() => setView('LANDING')} onNavigate={(v) => setView(v)} />;
+      case 'DOCS':
+        return <Docs onBack={() => setView('LANDING')} />;
       default:
-        return <Landing onEnter={() => setView(ViewState.DASHBOARD)} onDocs={() => setView(ViewState.DOCS)} />;
+        return <Landing onEnter={() => setView('DASHBOARD')} onDocs={() => setView('DOCS')} />;
     }
   };
 
@@ -30,7 +29,7 @@ const AppContent: React.FC = () => {
   );
 };
 
-const App: React.FC = () => { 
+const App: React.FC = () => {
   return (
     <ThemeProvider image={gradient}>
       <AppContent />

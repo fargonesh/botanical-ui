@@ -3,37 +3,29 @@ import { ThemeProvider } from '../contexts/ThemeContext';
 import Landing from '../views/Landing';
 import Dashboard from '../views/Dashboard';
 import Docs from '../views/Docs';
-import { ViewState } from '../types';
+import { Routes, Route, useNavigate, BrowserRouter } from 'react-router-dom';
 
-const AppContent: React.FC = () => {
-  const [view, setView] = React.useState<ViewState>(ViewState.LANDING);
-
-  const renderView = () => {
-    switch (view) {
-      case ViewState.LANDING:
-        return <Landing onEnter={() => setView(ViewState.DASHBOARD)} onDocs={() => setView(ViewState.DOCS)} />;
-      case ViewState.DASHBOARD:
-        return <Dashboard onBack={() => setView(ViewState.LANDING)} onNavigate={(v) => setView(v)} />;
-      case ViewState.DOCS:
-        return <Docs onBack={() => setView(ViewState.LANDING)} />;
-      default:
-        return <Landing onEnter={() => setView(ViewState.DASHBOARD)} onDocs={() => setView(ViewState.DOCS)} />;
-    }
-  };
-
+const AppRoutes: React.FC = () => {
+  const navigate = useNavigate();
   return (
-    <div className="antialiased selection:bg-bio-primary selection:text-white bg-bio-white text-bio-black min-h-screen transition-colors duration-300">
-      {renderView()}
-    </div>
+    <Routes>
+      <Route path="/" element={<Landing onEnter={() => navigate('/dashboard')} onDocs={() => navigate('/docs')} />} />
+      <Route path="/dashboard" element={<Dashboard onBack={() => navigate('/')} onNavigate={(v) => navigate(v === 'DOCS' ? '/docs' : '/dashboard')} />} />
+      <Route path="/docs" element={<Docs onBack={() => navigate('/')} />} />
+    </Routes>
   );
 };
 
 const ExampleApp: React.FC = () => {
-    return (
-        <ThemeProvider>
-            <AppContent />
-        </ThemeProvider>
-    );
+  return (
+    <BrowserRouter>
+      <ThemeProvider>
+        <div className="antialiased selection:bg-bio-primary selection:text-white bg-bio-white text-bio-black min-h-screen transition-colors duration-300">
+          <AppRoutes />
+        </div>
+      </ThemeProvider>
+    </BrowserRouter>
+  );
 };
 
 export default ExampleApp;

@@ -14,7 +14,7 @@ import { ViewState } from '../types';
 
 interface DashboardProps {
     onBack: () => void;
-    onNavigate: (view: ViewState) => void;
+    onNavigate: (view: string) => void;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ onBack, onNavigate }) => {

@@ -58,21 +58,20 @@ export const Tabs: React.FC<{ tabs: {label: string, content: React.ReactNode}[],
         </div>
     );
 };
-
 export const Table: React.FC<{ headers: string[], data: string[][], className?: string }> = ({ headers, data, className }) => (
     <div className={cn("w-full overflow-x-auto border border-bio-black bg-bio-white", className)}>
         <table className="w-full text-left border-collapse">
             <thead>
                 <tr className="bg-bio-black text-bio-white">
-                    {headers.map((h, i) => (
+                    {headers?.map((h: string, i: number) => (
                         <th key={i} className="p-3 font-mono text-xs uppercase tracking-wider font-normal border-r border-bio-white/20 last:border-r-0">{h}</th>
                     ))}
                 </tr>
             </thead>
             <tbody>
-                {data.map((row, i) => (
+                {data?.map((row: string[], i: number) => (
                     <tr key={i} className="border-b border-bio-black/10 last:border-b-0 hover:bg-bio-gray/30 transition-colors">
-                        {row.map((cell, j) => (
+                        {row.map((cell: string, j: number) => (
                             <td key={j} className="p-3 font-mono text-xs border-r border-bio-black/10 last:border-r-0 text-bio-black">{cell}</td>
                         ))}
                     </tr>
