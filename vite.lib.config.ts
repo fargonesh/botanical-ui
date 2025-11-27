@@ -9,7 +9,7 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       include: ['components/**/*.tsx', 'components/**/*.ts', 'contexts/**/*.tsx', 'hooks/**/*.ts', 'utils.ts', 'types.ts'],
-      exclude: ['**/*.test.ts', '**/*.test.tsx']
+      exclude: ['**/*.test.ts', '**/*.test.tsx', 'App.tsx', 'index.tsx', 'views/**/*', 'examples/**/*']
     })
   ],
   build: {
