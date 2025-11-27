@@ -1,0 +1,51 @@
+# Development files
+.devenv/
+.direnv/
+.envrc
+devenv.nix
+devenv.yaml
+devenv.lock
+.git/
+.gitignore
+
+# Source files (only dist is needed)
+examples/
+views/
+images/
+App.tsx
+index.html
+index.tsx
+
+# Build configs
+vite.config.ts
+vite.examples.config.ts
+tsconfig.json
+
+# Development dependencies
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+*.orig
+.cache/

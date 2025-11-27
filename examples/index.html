@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Botanical UI - Examples</title>
+  <!-- Fonts: Cinzel (Serif), Space Grotesk (Sans), Space Mono (Mono) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Space Grotesk"', 'sans-serif'],
+            serif: ['"Cinzel"', 'serif'],
+            mono: ['"Space Mono"', 'monospace'],
+          },
+          colors: {
+            'bio-black': 'var(--bio-ink)',
+            'bio-white': 'var(--bio-paper)',
+            'bio-primary': 'var(--bio-primary)',
+            'bio-secondary': 'var(--bio-secondary)',
+            'bio-accent': 'var(--bio-accent)',
+            'bio-red': 'var(--bio-red)',
+            'bio-green': 'var(--bio-green)',
+            'bio-gray': 'var(--bio-gray)',
+          },
+          backgroundImage: {
+            'noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+          },
+          animation: {
+            'marquee': 'marquee 25s linear infinite',
+            'spin-slow': 'spin 8s linear infinite',
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-100%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --bio-ink: #0a0a0a;
+      --bio-paper: #f4f1ea;
+      --bio-primary: #ff3300;
+      --bio-secondary: #ccff00;
+      --bio-accent: #ff6b6b;
+      --bio-gray: #e5e5e5;
+      /* Legacy names for backwards compatibility */
+      --bio-red: #ff3300;
+      --bio-green: #ccff00;
+    }
+
+    /* Custom Dither Effect Class */
+    .dither-img {
+      filter: grayscale(100%) contrast(120%);
+      mix-blend-mode: multiply;
+    }
+
+    body {
+      background-image: url("../image-mesh-gradient.webp");
+      background-position: center;
+      background-size: cover;
+      color: var(--bio-ink);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Hide scrollbar for clean aesthetic */
+    ::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+  <link rel="stylesheet" href="../index.css">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/examples/index.tsx"></script>
+</body>
+
+</html>
