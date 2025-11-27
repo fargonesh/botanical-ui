@@ -26,18 +26,18 @@ A brutalist botanical React component library with dynamic theming capabilities.
 ## Installation
 
 ```bash
-npm install @botanical-ui/core
+npm install botanical-ui
 # or
-yarn add @botanical-ui/core
+yarn add botanical-ui
 # or
-pnpm add @botanical-ui/core
+pnpm add botanical-ui
 ```
 
 ## Quick Start
 
 ```tsx
-import { ThemeProvider, BrutalCard, Badge } from '@botanical-ui/core';
-import '@botanical-ui/core/style.css';
+import { ThemeProvider, BrutalCard, Badge } from 'botanical-ui';
+import 'botanical-ui/style.css';
 
 function App() {
   return (
@@ -55,7 +55,7 @@ function App() {
 Automatically extract colors from an image:
 
 ```tsx
-import { ThemeProvider } from '@botanical-ui/core';
+import { ThemeProvider } from 'botanical-ui';
 
 function App() {
   return (
@@ -105,7 +105,7 @@ function App() {
 ### Using the Theme Hook
 
 ```tsx
-import { useTheme } from '@botanical-ui/core';
+import { useTheme } from 'botanical-ui';
 
 function Component() {
   const { colors, theme, toggleTheme } = useTheme();
@@ -163,7 +163,7 @@ All theme colors are available as CSS variables:
 The library includes default styles via `index.css`. Import it in your app:
 
 ```tsx
-import '@botanical-ui/core/style.css';
+import 'botanical-ui/style.css';
 ```
 
 ### Tailwind Integration
@@ -181,7 +181,7 @@ The library works seamlessly with Tailwind CSS. Color utilities are automaticall
 ### Gallery with Per-Image Theming
 
 ```tsx
-import { ThemeProvider } from '@botanical-ui/core';
+import { ThemeProvider } from 'botanical-ui';
 
 function Gallery() {
   const [image, setImage] = useState<string | null>(null);
@@ -205,7 +205,7 @@ function Gallery() {
 ### Custom Color Palette
 
 ```tsx
-import { useTheme } from '@botanical-ui/core';
+import { useTheme } from 'botanical-ui';
 
 function ColorCustomizer() {
   const { setCustomColor } = useTheme();
@@ -222,71 +222,3 @@ function ColorCustomizer() {
   );
 }
 ```
-
-## Browser Support
-
-- Chrome/Edge: Latest 2 versions
-- Firefox: Latest 2 versions
-- Safari: Latest 2 versions
-
-## Development
-
-### Setup
-
-```bash
-git clone https://github.com/yourusername/botanical-ui.git
-cd botanical-ui
-npm install
-```
-
-### Run Examples
-
-```bash
-npm run dev:examples
-```
-
-### Build Library
-
-```bash
-npm run build:lib
-```
-
-### Type Checking
-
-```bash
-npm run type-check
-```
-
-## Publishing
-
-```bash
-# Build the library
-npm run build:lib
-
-# Publish to npm
-npm publish
-```
-
-## License
-
-MIT
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Resources
-
-- [Theme System Documentation](./THEME_SYSTEM.md)
-- [Component Gallery](http://localhost:3001) (run examples)
-- [GitHub](https://github.com/yourusername/botanical-ui)
-
-## Support
-
-For issues and questions:
-- Open an issue on GitHub
-- Check existing documentation
-
----
-
-Made with 🌿 by the Botanical UI team
