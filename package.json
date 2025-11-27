@@ -1,17 +1,17 @@
 {
   "name": "botanical-ui",
   "description": "A brutalist botanical React component library with dynamic theming from images",
-  "version": "3.0.1",
+  "version": "2.0.0",
   "type": "module",
   "private": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
-  "exports": {
+    "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.es.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     },
     "./style.css": "./dist/style.css"
   },
