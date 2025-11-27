@@ -1,5 +1,5 @@
 {
-  "name": "@botanical-ui/core",
+  "name": "botanical-ui",
   "description": "A brutalist botanical React component library with dynamic theming from images",
   "version": "2.0.0",
   "type": "module",
