@@ -120,6 +120,94 @@ const Docs: React.FC<DocsProps> = ({ onBack }) => {
                         >
                             <div className="space-y-8 w-full max-w-xs">
                                 <Barcode />
+                                <Separator className="my-16" />
+
+                                {/* SectionHeader section */}
+                                <div id="sectionheader" className="space-y-12">
+                                    <div className="flex items-center gap-2 mb-8">
+                                        <Type className="w-6 h-6 text-bio-red" />
+                                        <h2 className="font-mono text-xl uppercase tracking-widest">Section Header</h2>
+                                    </div>
+                                    <DocWrapper
+                                        title="Section Header"
+                                        description="Displays a section title, subtitle, and index for documentation or UI grouping."
+                                        code={`<SectionHeader title="Section Title" subtitle="Section subtitle goes here" index="01" />`}
+                                    >
+                                        <SectionHeader title="Section Title" subtitle="Section subtitle goes here" index="01" />
+                                    </DocWrapper>
+                                </div>
+
+                                <Separator className="my-16" />
+
+                                {/* Ticker section */}
+                                <div id="ticker" className="space-y-12">
+                                    <div className="flex items-center gap-2 mb-8">
+                                        <Activity className="w-6 h-6 text-bio-red" />
+                                        <h2 className="font-mono text-xl uppercase tracking-widest">Ticker</h2>
+                                    </div>
+                                    <DocWrapper
+                                        title="Ticker"
+                                        description="Animated horizontal ticker for status, headlines, or alerts."
+                                        code={`<Ticker text="System Online" />`}
+                                    >
+                                        <Ticker text="System Online" />
+                                    </DocWrapper>
+                                </div>
+
+                                <Separator className="my-16" />
+
+                                {/* Text section */}
+                                <div id="text" className="space-y-12">
+                                    <div className="flex items-center gap-2 mb-8">
+                                        <Type className="w-6 h-6 text-bio-red" />
+                                        <h2 className="font-mono text-xl uppercase tracking-widest">Text</h2>
+                                    </div>
+                                    <DocWrapper
+                                        title="Text"
+                                        description="Text component for body, mono, and caption styles."
+                                        code={`<Text variant="body">Body text</Text>\n<Text variant="mono">Mono text</Text>\n<Text variant="caption">Caption text</Text>`}
+                                    >
+                                        <div className="space-y-2">
+                                            <Text variant="body">Body text: The quick brown fox jumps over the lazy dog.</Text>
+                                            <Text variant="mono">Mono text: 0123456789 ABC xyz</Text>
+                                            <Text variant="caption">Caption text: SYSTEM STATUS</Text>
+                                        </div>
+                                    </DocWrapper>
+                                </div>
+
+                                <Separator className="my-16" />
+
+                                {/* Select section */}
+                                <div id="select" className="space-y-12">
+                                    <div className="flex items-center gap-2 mb-8">
+                                        <Box className="w-6 h-6 text-bio-red" />
+                                        <h2 className="font-mono text-xl uppercase tracking-widest">Select</h2>
+                                    </div>
+                                    <DocWrapper
+                                        title="Select"
+                                        description="Dropdown select input for options."
+                                        code={`<Select options={[{value:'a',label:'Option A'},{value:'b',label:'Option B'}]} value="a" onChange={fn} />`}
+                                    >
+                                        <Select options={[{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }, { value: 'c', label: 'Option C' }]} value="a" onChange={() => { }} />
+                                    </DocWrapper>
+                                </div>
+
+                                <Separator className="my-16" />
+
+                                {/* RadioGroup section */}
+                                <div id="radiogroup" className="space-y-12">
+                                    <div className="flex items-center gap-2 mb-8">
+                                        <Box className="w-6 h-6 text-bio-red" />
+                                        <h2 className="font-mono text-xl uppercase tracking-widest">Radio Group</h2>
+                                    </div>
+                                    <DocWrapper
+                                        title="Radio Group"
+                                        description="Radio button group for exclusive selection."
+                                        code={`<RadioGroup options={[{value:'a',label:'Option A'},{value:'b',label:'Option B'}]} value="a" onChange={fn} name="example" />`}
+                                    >
+                                        <RadioGroup options={[{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }, { value: 'c', label: 'Option C' }]} value="a" onChange={() => { }} name="example" />
+                                    </DocWrapper>
+                                </div>
                             </div>
                         </DocWrapper>
                     </div>
@@ -198,7 +286,7 @@ const Docs: React.FC<DocsProps> = ({ onBack }) => {
                         >
                             <div className="p-4 border border-bio-black bg-bio-white">
                                 <span className="font-mono text-xs mb-2 block">Press Ctrl+K to open the palette.</span>
-                                <CommandPalette onNavigate={() => {}} />
+                                <CommandPalette onNavigate={() => { }} />
                             </div>
                         </DocWrapper>
 
@@ -309,7 +397,7 @@ const Docs: React.FC<DocsProps> = ({ onBack }) => {
                             <div className="space-y-6 max-w-sm w-full">
                                 <Checkbox label="Confirm Protocol" checked={true} />
                                 <Switch label="System Power" checked={true} />
-                                <Slider value={50} min={0} max={100} onChange={() => {}} />
+                                <Slider value={50} min={0} max={100} onChange={() => { }} />
                             </div>
                         </DocWrapper>
 
@@ -326,12 +414,12 @@ const Docs: React.FC<DocsProps> = ({ onBack }) => {
                                         { value: 'opt2', label: 'Option 2' },
                                         { value: 'opt3', label: 'Option 3' }
                                     ]}
-                                    onChange={() => {}}
+                                    onChange={() => { }}
                                 />
                                 <div className="flex gap-4">
                                     <TimeInput />
                                     <div className="bg-bio-white border border-bio-black p-2">
-                                        <Calendar onSelect={() => {}} />
+                                        <Calendar onSelect={() => { }} />
                                     </div>
                                 </div>
                             </div>

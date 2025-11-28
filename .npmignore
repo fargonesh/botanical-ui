@@ -9,6 +9,7 @@ devenv.lock
 .gitignore
 
 # Source files (only dist is needed)
+dist-examples
 examples/
 views/
 images/
