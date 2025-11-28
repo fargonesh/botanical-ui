@@ -12,8 +12,26 @@ export default defineConfig({
     react(),
     dts({
       insertTypesEntry: true,
-      include: ['components/**/*.tsx', 'components/**/*.ts', 'contexts/**/*.tsx', 'hooks/**/*.ts', 'utils.ts', 'types.ts'],
-      exclude: ['**/*.test.ts', '**/*.test.tsx', 'App.tsx', 'index.tsx', 'views/**/*', 'examples/**/*']
+      entryRoot: 'src/lib',
+      include: [
+        'src/lib/**/*.ts',
+        'components/**/*.tsx',
+        'components/**/*.ts',
+        'contexts/**/*.tsx',
+        'hooks/**/*.ts',
+        'utils.ts',
+        'types.ts'
+      ],
+      exclude: [
+        '**/*.test.ts',
+        '**/*.test.tsx',
+        'App.tsx',
+        'index.tsx',
+        'views/**/*',
+        'examples/**/*',
+        'node_modules/**'
+      ],
+      tsconfigPath: './tsconfig.lib.json'
     })
   ],
   build: {
