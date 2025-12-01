@@ -1,7 +1,7 @@
 {
   "name": "botanical-ui",
   "description": "A brutalist botanical React component library with dynamic theming from images",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "type": "module",
   "private": false,
   "workspaces": [
