@@ -12,8 +12,10 @@ export default defineConfig({
     react(),
     dts({
       insertTypesEntry: true,
-      entryRoot: 'src/lib',
+      outDir: 'dist',
+      root: '.',
       include: [
+        'global.d.ts',
         'src/lib/**/*.ts',
         'components/**/*.tsx',
         'components/**/*.ts',
@@ -28,10 +30,16 @@ export default defineConfig({
         'App.tsx',
         'index.tsx',
         'views/**/*',
-        'examples/**/*',
+        'packages/**/*',
         'node_modules/**'
       ],
-      tsconfigPath: './tsconfig.lib.json'
+      tsconfigPath: './tsconfig.lib.json',
+      compilerOptions: {
+        baseUrl: '.',
+        paths: {
+          '@/*': ['./*']
+        }
+      }
     })
   ],
   build: {

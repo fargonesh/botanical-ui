@@ -1,0 +1,29 @@
+{
+  "name": "@botanical-ui/examples",
+  "version": "3.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "botanical-ui": "file:../..",
+    "@google/genai": "^1.30.0",
+    "chart.js": "^4.5.1",
+    "fast-average-color": "^9.4.0",
+    "highlight.js": "^11.9.0",
+    "lucide-react": "^0.555.0",
+    "react": "^19.2.0",
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.9.6"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@vitejs/plugin-react": "^5.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.4"
+  }
+}

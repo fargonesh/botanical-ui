@@ -6,12 +6,10 @@ import {
     Accordion, Tabs, Table, Chart, Heading, Text, BrutalCard, ImageFrame,
     Barcode, Terminal, AnalogueClock, Modal, Drawer, CommandPalette, ContextMenu,
     SectionHeader, Separator, Sidebar, SidebarHeader, SidebarContent, SidebarItem,
-    SidebarFooter, Breadcrumb
-} from '../components/_mod';
-import { DocWrapper } from '../components/DocWrapper';
+    SidebarFooter, Breadcrumb, DocWrapper, Ticker
+} from 'botanical-ui';
 import { ArrowLeft, Box, Layout, Type, MousePointer, Activity } from 'lucide-react';
-import Decorations from '../components/decorations/Decorations';
-import { Ticker } from '../components/Complex';
+import Decorations from '@/components/decorations/Decorations';
 
 interface DocsProps {
     onBack: () => void;
@@ -23,18 +21,29 @@ const Docs: React.FC<DocsProps> = ({ onBack }) => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [paletteOpen, setPaletteOpen] = useState(false);
     const [contextOpen, setContextOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
 
     const scrollToSection = (id: string) => {
         setActiveSection(id);
         const element = document.getElementById(id);
-        if (element) element.scrollIntoView({ behavior: 'smooth' });
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+            setSidebarOpen(false);
+        }
+    };
+
+    const handleNavClick = (hash: string, id: string) => {
+        window.location.hash = hash;
+        setActiveSection(id);
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        setSidebarOpen(false);
     };
 
     return (
         <div
-            className="flex h-screen overflow-hidden"
+            className="flex h-screen overflow-hidden relative"
             style={{
                 backgroundImage: `url('/images/gradient.webp')`,
                 backgroundPosition: 'center',
@@ -42,6 +51,42 @@ const Docs: React.FC<DocsProps> = ({ onBack }) => {
                 backgroundRepeat: 'no-repeat',
             }}
         >
+            {/* Mobile Sidebar using Drawer */}
+            <Drawer isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} side="left">
+                <div className="p-4">
+                    <div className="flex items-center gap-2 mb-6">
+                        <Button size="sm" variant="ghost" onClick={onBack} className="px-2">
+                            <ArrowLeft size={16} />
+                        </Button>
+                        <span className="font-serif font-bold">Documentation</span>
+                    </div>
+                    <div className="mb-4">
+                        <p className="px-3 py-2 font-mono text-[10px] uppercase opacity-50">Foundation</p>
+                        <SidebarItem label="Typography" icon={<Type size={14} />} active={window.location.hash === '#typography'} onClick={() => handleNavClick('#typography', 'typography')} />
+                        <SidebarItem label="Layout & Cards" icon={<Layout size={14} />} active={window.location.hash === '#layout'} onClick={() => handleNavClick('#layout', 'layout')} />
+                    </div>
+                    <div className="mb-4">
+                        <p className="px-3 py-2 font-mono text-[10px] uppercase opacity-50">Components</p>
+                        <SidebarItem label="Barcode" icon={<Activity size={14} />} active={window.location.hash === '#barcode'} onClick={() => handleNavClick('#barcode', 'barcode')} />
+                        <SidebarItem label="Section Header" icon={<Type size={14} />} active={window.location.hash === '#sectionheader'} onClick={() => handleNavClick('#sectionheader', 'sectionheader')} />
+                        <SidebarItem label="Ticker" icon={<Activity size={14} />} active={window.location.hash === '#ticker'} onClick={() => handleNavClick('#ticker', 'ticker')} />
+                        <SidebarItem label="Text" icon={<Type size={14} />} active={window.location.hash === '#text'} onClick={() => handleNavClick('#text', 'text')} />
+                        <SidebarItem label="Select" icon={<Box size={14} />} active={window.location.hash === '#select'} onClick={() => handleNavClick('#select', 'select')} />
+                        <SidebarItem label="Radio Group" icon={<Box size={14} />} active={window.location.hash === '#radiogroup'} onClick={() => handleNavClick('#radiogroup', 'radiogroup')} />
+                        <SidebarItem label="Terminal" icon={<MousePointer size={14} />} active={window.location.hash === '#terminal'} onClick={() => handleNavClick('#terminal', 'terminal')} />
+                        <SidebarItem label="Analogue Clock" icon={<Activity size={14} />} active={window.location.hash === '#analogueclock'} onClick={() => handleNavClick('#analogueclock', 'analogueclock')} />
+                        <SidebarItem label="Overlays" icon={<MousePointer size={14} />} active={window.location.hash === '#overlays'} onClick={() => handleNavClick('#overlays', 'overlays')} />
+                        <SidebarItem label="Data Display" icon={<Layout size={14} />} active={window.location.hash === '#data'} onClick={() => handleNavClick('#data', 'data')} />
+                        <SidebarItem label="Forms & Inputs" icon={<Box size={14} />} active={window.location.hash === '#forms'} onClick={() => handleNavClick('#forms', 'forms')} />
+                        <SidebarItem label="Image Frame" icon={<Layout size={14} />} active={window.location.hash === '#imageframe'} onClick={() => handleNavClick('#imageframe', 'imageframe')} />
+                        <SidebarItem label="Accordion" icon={<Box size={14} />} active={window.location.hash === '#accordion'} onClick={() => handleNavClick('#accordion', 'accordion')} />
+                        <SidebarItem label="Tabs" icon={<Layout size={14} />} active={window.location.hash === '#tabs'} onClick={() => handleNavClick('#tabs', 'tabs')} />
+                        <SidebarItem label="Feedback" icon={<Activity size={14} />} active={window.location.hash === '#feedback'} onClick={() => handleNavClick('#feedback', 'feedback')} />
+                    </div>
+                </div>
+            </Drawer>
+
+            {/* Desktop Sidebar */}
             <Sidebar className="w-64 hidden lg:flex shrink-0">
                 <SidebarHeader>
                     <div className="flex items-center gap-2">
@@ -54,30 +99,47 @@ const Docs: React.FC<DocsProps> = ({ onBack }) => {
                 <SidebarContent>
                     <div className="mb-4">
                         <p className="px-3 py-2 font-mono text-[10px] uppercase opacity-50">Foundation</p>
-                        <SidebarItem label="Typography" icon={<Type size={14} />} active={window.location.hash === '#typography'} onClick={() => { window.location.hash = '#typography'; setActiveSection('typography'); document.getElementById('typography')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Layout & Cards" icon={<Layout size={14} />} active={window.location.hash === '#layout'} onClick={() => { window.location.hash = '#layout'; setActiveSection('layout'); document.getElementById('layout')?.scrollIntoView({ behavior: 'smooth' }); }} />
+                        <SidebarItem label="Typography" icon={<Type size={14} />} active={window.location.hash === '#typography'} onClick={() => handleNavClick('#typography', 'typography')} />
+                        <SidebarItem label="Layout & Cards" icon={<Layout size={14} />} active={window.location.hash === '#layout'} onClick={() => handleNavClick('#layout', 'layout')} />
                     </div>
                     <div className="mb-4">
                         <p className="px-3 py-2 font-mono text-[10px] uppercase opacity-50">Components</p>
-                        <SidebarItem label="Section Header" icon={<Type size={14} />} active={window.location.hash === '#sectionheader'} onClick={() => { window.location.hash = '#sectionheader'; setActiveSection('sectionheader'); document.getElementById('sectionheader')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Ticker" icon={<Activity size={14} />} active={window.location.hash === '#ticker'} onClick={() => { window.location.hash = '#ticker'; setActiveSection('ticker'); document.getElementById('ticker')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Brutal Card" icon={<Layout size={14} />} active={window.location.hash === '#brutalcard'} onClick={() => { window.location.hash = '#brutalcard'; setActiveSection('brutalcard'); document.getElementById('brutalcard')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Image Frame" icon={<Layout size={14} />} active={window.location.hash === '#imageframe'} onClick={() => { window.location.hash = '#imageframe'; setActiveSection('imageframe'); document.getElementById('imageframe')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Barcode" icon={<Activity size={14} />} active={window.location.hash === '#barcode'} onClick={() => { window.location.hash = '#barcode'; setActiveSection('barcode'); document.getElementById('barcode')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Terminal" icon={<MousePointer size={14} />} active={window.location.hash === '#terminal'} onClick={() => { window.location.hash = '#terminal'; setActiveSection('terminal'); document.getElementById('terminal')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Analogue Clock" icon={<Activity size={14} />} active={window.location.hash === '#analogueclock'} onClick={() => { window.location.hash = '#analogueclock'; setActiveSection('analogueclock'); document.getElementById('analogueclock')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Forms & Inputs" icon={<Box size={14} />} active={window.location.hash === '#forms'} onClick={() => { window.location.hash = '#forms'; setActiveSection('forms'); document.getElementById('forms')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Feedback" icon={<Activity size={14} />} active={window.location.hash === '#feedback'} onClick={() => { window.location.hash = '#feedback'; setActiveSection('feedback'); document.getElementById('feedback')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Data Display" icon={<Layout size={14} />} active={window.location.hash === '#data'} onClick={() => { window.location.hash = '#data'; setActiveSection('data'); document.getElementById('data')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Overlays" icon={<MousePointer size={14} />} active={window.location.hash === '#overlays'} onClick={() => { window.location.hash = '#overlays'; setActiveSection('overlays'); document.getElementById('overlays')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Accordion" icon={<Box size={14} />} active={window.location.hash === '#accordion'} onClick={() => { window.location.hash = '#accordion'; setActiveSection('accordion'); document.getElementById('accordion')?.scrollIntoView({ behavior: 'smooth' }); }} />
-                        <SidebarItem label="Tabs" icon={<Layout size={14} />} active={window.location.hash === '#tabs'} onClick={() => { window.location.hash = '#tabs'; setActiveSection('tabs'); document.getElementById('tabs')?.scrollIntoView({ behavior: 'smooth' }); }} />
+                        <SidebarItem label="Barcode" icon={<Activity size={14} />} active={window.location.hash === '#barcode'} onClick={() => handleNavClick('#barcode', 'barcode')} />
+                        <SidebarItem label="Section Header" icon={<Type size={14} />} active={window.location.hash === '#sectionheader'} onClick={() => handleNavClick('#sectionheader', 'sectionheader')} />
+                        <SidebarItem label="Ticker" icon={<Activity size={14} />} active={window.location.hash === '#ticker'} onClick={() => handleNavClick('#ticker', 'ticker')} />
+                        <SidebarItem label="Text" icon={<Type size={14} />} active={window.location.hash === '#text'} onClick={() => handleNavClick('#text', 'text')} />
+                        <SidebarItem label="Select" icon={<Box size={14} />} active={window.location.hash === '#select'} onClick={() => handleNavClick('#select', 'select')} />
+                        <SidebarItem label="Radio Group" icon={<Box size={14} />} active={window.location.hash === '#radiogroup'} onClick={() => handleNavClick('#radiogroup', 'radiogroup')} />
+                        <SidebarItem label="Terminal" icon={<MousePointer size={14} />} active={window.location.hash === '#terminal'} onClick={() => handleNavClick('#terminal', 'terminal')} />
+                        <SidebarItem label="Analogue Clock" icon={<Activity size={14} />} active={window.location.hash === '#analogueclock'} onClick={() => handleNavClick('#analogueclock', 'analogueclock')} />
+                        <SidebarItem label="Overlays" icon={<MousePointer size={14} />} active={window.location.hash === '#overlays'} onClick={() => handleNavClick('#overlays', 'overlays')} />
+                        <SidebarItem label="Data Display" icon={<Layout size={14} />} active={window.location.hash === '#data'} onClick={() => handleNavClick('#data', 'data')} />
+                        <SidebarItem label="Forms & Inputs" icon={<Box size={14} />} active={window.location.hash === '#forms'} onClick={() => handleNavClick('#forms', 'forms')} />
+                        <SidebarItem label="Image Frame" icon={<Layout size={14} />} active={window.location.hash === '#imageframe'} onClick={() => handleNavClick('#imageframe', 'imageframe')} />
+                        <SidebarItem label="Accordion" icon={<Box size={14} />} active={window.location.hash === '#accordion'} onClick={() => handleNavClick('#accordion', 'accordion')} />
+                        <SidebarItem label="Tabs" icon={<Layout size={14} />} active={window.location.hash === '#tabs'} onClick={() => handleNavClick('#tabs', 'tabs')} />
+                        <SidebarItem label="Feedback" icon={<Activity size={14} />} active={window.location.hash === '#feedback'} onClick={() => handleNavClick('#feedback', 'feedback')} />
                     </div>
                 </SidebarContent>
             </Sidebar>
 
-            <main className="flex-1 overflow-y-auto p-8 md:p-12 scroll-smooth">
-                <div className="max-w-5xl mx-auto pb-32">
+            <main className="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12 scroll-smooth relative">
+                {/* Mobile Menu Button - hidden when sidebar is open */}
+                {!sidebarOpen && (
+                    <div className="lg:hidden fixed top-4 left-4 z-50">
+                        <Button
+                            size="sm"
+                            variant="primary"
+                            onClick={() => setSidebarOpen(true)}
+                            className="shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+                        >
+                            <Layout size={16} className="mr-2" />
+                            Menu
+                        </Button>
+                    </div>
+                )}
+
+                <div className="max-w-5xl mx-auto pb-32 pt-16 lg:pt-0">
                     <div className="mb-16">
                         <h1 className="font-serif text-5xl md:text-7xl mb-4 text-bio-black">Library</h1>
                         <p className="font-mono text-sm max-w-2xl leading-relaxed opacity-70">
@@ -120,95 +182,96 @@ const Docs: React.FC<DocsProps> = ({ onBack }) => {
                         >
                             <div className="space-y-8 w-full max-w-xs">
                                 <Barcode />
-                                <Separator className="my-16" />
-
-                                {/* SectionHeader section */}
-                                <div id="sectionheader" className="space-y-12">
-                                    <div className="flex items-center gap-2 mb-8">
-                                        <Type className="w-6 h-6 text-bio-red" />
-                                        <h2 className="font-mono text-xl uppercase tracking-widest">Section Header</h2>
-                                    </div>
-                                    <DocWrapper
-                                        title="Section Header"
-                                        description="Displays a section title, subtitle, and index for documentation or UI grouping."
-                                        code={`<SectionHeader title="Section Title" subtitle="Section subtitle goes here" index="01" />`}
-                                    >
-                                        <SectionHeader title="Section Title" subtitle="Section subtitle goes here" index="01" />
-                                    </DocWrapper>
-                                </div>
-
-                                <Separator className="my-16" />
-
-                                {/* Ticker section */}
-                                <div id="ticker" className="space-y-12">
-                                    <div className="flex items-center gap-2 mb-8">
-                                        <Activity className="w-6 h-6 text-bio-red" />
-                                        <h2 className="font-mono text-xl uppercase tracking-widest">Ticker</h2>
-                                    </div>
-                                    <DocWrapper
-                                        title="Ticker"
-                                        description="Animated horizontal ticker for status, headlines, or alerts."
-                                        code={`<Ticker text="System Online" />`}
-                                    >
-                                        <Ticker text="System Online" />
-                                    </DocWrapper>
-                                </div>
-
-                                <Separator className="my-16" />
-
-                                {/* Text section */}
-                                <div id="text" className="space-y-12">
-                                    <div className="flex items-center gap-2 mb-8">
-                                        <Type className="w-6 h-6 text-bio-red" />
-                                        <h2 className="font-mono text-xl uppercase tracking-widest">Text</h2>
-                                    </div>
-                                    <DocWrapper
-                                        title="Text"
-                                        description="Text component for body, mono, and caption styles."
-                                        code={`<Text variant="body">Body text</Text>\n<Text variant="mono">Mono text</Text>\n<Text variant="caption">Caption text</Text>`}
-                                    >
-                                        <div className="space-y-2">
-                                            <Text variant="body">Body text: The quick brown fox jumps over the lazy dog.</Text>
-                                            <Text variant="mono">Mono text: 0123456789 ABC xyz</Text>
-                                            <Text variant="caption">Caption text: SYSTEM STATUS</Text>
-                                        </div>
-                                    </DocWrapper>
-                                </div>
-
-                                <Separator className="my-16" />
-
-                                {/* Select section */}
-                                <div id="select" className="space-y-12">
-                                    <div className="flex items-center gap-2 mb-8">
-                                        <Box className="w-6 h-6 text-bio-red" />
-                                        <h2 className="font-mono text-xl uppercase tracking-widest">Select</h2>
-                                    </div>
-                                    <DocWrapper
-                                        title="Select"
-                                        description="Dropdown select input for options."
-                                        code={`<Select options={[{value:'a',label:'Option A'},{value:'b',label:'Option B'}]} value="a" onChange={fn} />`}
-                                    >
-                                        <Select options={[{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }, { value: 'c', label: 'Option C' }]} value="a" onChange={() => { }} />
-                                    </DocWrapper>
-                                </div>
-
-                                <Separator className="my-16" />
-
-                                {/* RadioGroup section */}
-                                <div id="radiogroup" className="space-y-12">
-                                    <div className="flex items-center gap-2 mb-8">
-                                        <Box className="w-6 h-6 text-bio-red" />
-                                        <h2 className="font-mono text-xl uppercase tracking-widest">Radio Group</h2>
-                                    </div>
-                                    <DocWrapper
-                                        title="Radio Group"
-                                        description="Radio button group for exclusive selection."
-                                        code={`<RadioGroup options={[{value:'a',label:'Option A'},{value:'b',label:'Option B'}]} value="a" onChange={fn} name="example" />`}
-                                    >
-                                        <RadioGroup options={[{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }, { value: 'c', label: 'Option C' }]} value="a" onChange={() => { }} name="example" />
-                                    </DocWrapper>
-                                </div>
                             </div>
+                        </DocWrapper>
+                    </div>
+
+                    <Separator className="my-16" />
+
+                    {/* SectionHeader section */}
+                    <div id="sectionheader" className="space-y-12">
+                        <div className="flex items-center gap-2 mb-8">
+                            <Type className="w-6 h-6 text-bio-red" />
+                            <h2 className="font-mono text-xl uppercase tracking-widest">Section Header</h2>
+                        </div>
+                        <DocWrapper
+                            title="Section Header"
+                            description="Displays a section title, subtitle, and index for documentation or UI grouping."
+                            code={`<SectionHeader title="Section Title" subtitle="Section subtitle goes here" index="01" />`}
+                        >
+                            <SectionHeader title="Section Title" subtitle="Section subtitle goes here" index="01" />
+                        </DocWrapper>
+                    </div>
+
+                    <Separator className="my-16" />
+
+                    {/* Ticker section */}
+                    <div id="ticker" className="space-y-12">
+                        <div className="flex items-center gap-2 mb-8">
+                            <Activity className="w-6 h-6 text-bio-red" />
+                            <h2 className="font-mono text-xl uppercase tracking-widest">Ticker</h2>
+                        </div>
+                        <DocWrapper
+                            title="Ticker"
+                            description="Animated horizontal ticker for status, headlines, or alerts."
+                            code={`<Ticker text="System Online" />`}
+                        >
+                            <Ticker text="System Online" />
+                        </DocWrapper>
+                    </div>
+
+                    <Separator className="my-16" />
+
+                    {/* Text section */}
+                    <div id="text" className="space-y-12">
+                        <div className="flex items-center gap-2 mb-8">
+                            <Type className="w-6 h-6 text-bio-red" />
+                            <h2 className="font-mono text-xl uppercase tracking-widest">Text</h2>
+                        </div>
+                        <DocWrapper
+                            title="Text"
+                            description="Text component for body, mono, and caption styles."
+                            code={`<Text variant="body">Body text</Text>\n<Text variant="mono">Mono text</Text>\n<Text variant="caption">Caption text</Text>`}
+                        >
+                            <div className="space-y-2">
+                                <Text variant="body">Body text: The quick brown fox jumps over the lazy dog.</Text>
+                                <Text variant="mono">Mono text: 0123456789 ABC xyz</Text>
+                                <Text variant="caption">Caption text: SYSTEM STATUS</Text>
+                            </div>
+                        </DocWrapper>
+                    </div>
+
+                    <Separator className="my-16" />
+
+                    {/* Select section */}
+                    <div id="select" className="space-y-12">
+                        <div className="flex items-center gap-2 mb-8">
+                            <Box className="w-6 h-6 text-bio-red" />
+                            <h2 className="font-mono text-xl uppercase tracking-widest">Select</h2>
+                        </div>
+                        <DocWrapper
+                            title="Select"
+                            description="Dropdown select input for options."
+                            code={`<Select options={[{value:'a',label:'Option A'},{value:'b',label:'Option B'}]} value="a" onChange={fn} />`}
+                        >
+                            <Select options={[{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }, { value: 'c', label: 'Option C' }]} value="a" onChange={() => { }} />
+                        </DocWrapper>
+                    </div>
+
+                    <Separator className="my-16" />
+
+                    {/* RadioGroup section */}
+                    <div id="radiogroup" className="space-y-12">
+                        <div className="flex items-center gap-2 mb-8">
+                            <Box className="w-6 h-6 text-bio-red" />
+                            <h2 className="font-mono text-xl uppercase tracking-widest">Radio Group</h2>
+                        </div>
+                        <DocWrapper
+                            title="Radio Group"
+                            description="Radio button group for exclusive selection."
+                            code={`<RadioGroup options={[{value:'a',label:'Option A'},{value:'b',label:'Option B'}]} value="a" onChange={fn} name="example" />`}
+                        >
+                            <RadioGroup options={[{ value: 'a', label: 'Option A' }, { value: 'b', label: 'Option B' }, { value: 'c', label: 'Option C' }]} value="a" onChange={() => { }} name="example" />
                         </DocWrapper>
                     </div>
 
@@ -339,7 +402,14 @@ const Docs: React.FC<DocsProps> = ({ onBack }) => {
                                 <p className="font-mono text-xs opacity-70">Example chart and table (data mocked in examples).</p>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="p-4 border border-bio-black bg-bio-white">
-                                        <Chart type="line" data={{ labels: ['A', 'B', 'C'], datasets: [{ label: 'Series', data: [10, 20, 15] }] }} />
+                                        <Chart
+                                            type="line"
+                                            data={[10, 20, 15]}
+                                            labels={['A', 'B', 'C']}
+                                            label="Series"
+                                            color="#ff3300"
+                                            height={200}
+                                        />
                                     </div>
                                     <div className="p-4 border border-bio-black bg-bio-white">
                                         <Table
@@ -466,13 +536,22 @@ const Docs: React.FC<DocsProps> = ({ onBack }) => {
                             </div>
                         </DocWrapper>
 
+                    </div>
+
+                    <Separator className="my-16" />
+
+                    {/* Image Frame section */}
+                    <div id="imageframe" className="space-y-12">
+                        <div className="flex items-center gap-2 mb-8">
+                            <Layout className="w-6 h-6 text-bio-red" />
+                            <h2 className="font-mono text-xl uppercase tracking-widest">Image Frame</h2>
+                        </div>
                         <DocWrapper
-                            title="Aesthetic Elements"
-                            description="Visual fluff to enhance the brutalist machine vibe."
-                            code={`<Barcode />\n<ImageFrame src="..." caption="Figure 1" />`}
+                            title="Image Frame"
+                            description="Framed images with captions for documentation or galleries."
+                            code={`<ImageFrame src="..." caption="Figure 1" />`}
                         >
-                            <div className="space-y-8 w-full max-w-xs">
-                                <Barcode />
+                            <div className="w-full max-w-xs">
                                 <ImageFrame src="https://picsum.photos/seed/doc/400/300" caption="Figure 1.1: Visual Data" />
                             </div>
                         </DocWrapper>
@@ -590,6 +669,6 @@ const Docs: React.FC<DocsProps> = ({ onBack }) => {
             </main>
         </div>
     );
-};
+}
 
 export default Docs;

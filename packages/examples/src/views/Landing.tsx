@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionHeader, Button, BrutalCard, ImageFrame, GridLineVertical, Barcode } from '../components/_mod';
+import { SectionHeader, Button, BrutalCard, ImageFrame, GridLineVertical, Barcode } from 'botanical-ui';
 import { ArrowRight, Globe, Leaf, Book } from 'lucide-react';
 
 interface LandingProps {

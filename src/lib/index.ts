@@ -8,6 +8,7 @@ export * from '../../components/Navigation';
 export * from '../../components/Overlays';
 export * from '../../components/Typography';
 export * from '../../components/Chart';
+export { DocWrapper } from '../../components/DocWrapper';
 
 // Export contexts
 export * from '../../contexts/ThemeContext';

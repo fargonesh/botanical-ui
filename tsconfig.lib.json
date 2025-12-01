@@ -3,9 +3,11 @@
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
-    "emitDeclarationOnly": false
+    "emitDeclarationOnly": false,
+    "outDir": "./dist"
   },
   "include": [
+    "global.d.ts",
     "src/lib/**/*",
     "components/**/*",
     "contexts/**/*",
@@ -16,7 +18,7 @@
   "exclude": [
     "node_modules",
     "dist",
-    "examples",
+    "packages",
     "views",
     "App.tsx",
     "index.tsx",

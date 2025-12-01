@@ -1,9 +1,10 @@
 import React from 'react';
-import { ThemeProvider } from '../contexts/ThemeContext';
-import Landing from '../views/Landing';
-import Dashboard from '../views/Dashboard';
-import Docs from '../views/Docs';
+import { ThemeProvider } from 'botanical-ui';
+import Landing from './views/Landing';
+import Dashboard from './views/Dashboard';
+import Docs from './views/Docs';
 import { Routes, Route, useNavigate, BrowserRouter } from 'react-router-dom';
+import 'botanical-ui/style.css';
 
 const AppRoutes: React.FC = () => {
   const navigate = useNavigate();

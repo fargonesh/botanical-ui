@@ -6,11 +6,11 @@ import {
     Modal, Drawer, CommandPalette,
     Sidebar, SidebarHeader, SidebarContent, SidebarFooter, SidebarItem,
     Separator,
-    RadioGroup, Combobox, Calendar, TimeInput, Breadcrumb, Kbd, ContextMenu, Avatar
-} from '../components/_mod';
+    RadioGroup, Combobox, Calendar, TimeInput, Breadcrumb, Kbd, ContextMenu, Avatar,
+    useTheme,
+    ViewState
+} from 'botanical-ui';
 import { Search, Disc, Cpu, Sprout, CornerDownLeft, Activity, Layers, Database, Menu, Settings, Bell, PanelRight, Command, Layout, Moon, Sun, User } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
-import { ViewState } from '../types';
 
 interface DashboardProps {
     onBack: () => void;

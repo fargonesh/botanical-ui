@@ -1,7 +1,29 @@
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
-import 'chart.js/auto';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
+
+// Register Chart.js components
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
 interface ChartProps {
     type: 'line' | 'bar';
@@ -13,6 +35,16 @@ interface ChartProps {
 }
 
 export const Chart: React.FC<ChartProps> = ({ type, data, labels, label, color = '#0a0a0a', height = 200 }) => {
+    const chartRef = useRef<any>(null);
+
+    useEffect(() => {
+        // Cleanup chart instance on unmount
+        return () => {
+            if (chartRef.current) {
+                chartRef.current.destroy();
+            }
+        };
+    }, []);
     // Brutalist Chart Config
     const options = {
         responsive: true,
@@ -87,9 +119,9 @@ export const Chart: React.FC<ChartProps> = ({ type, data, labels, label, color =
     return (
         <div style={{ height }}>
             {type === 'line' ? (
-                <Line options={options} data={chartData} />
+                <Line ref={chartRef} options={options} data={chartData} />
             ) : (
-                <Bar options={options} data={chartData} />
+                <Bar ref={chartRef} options={options} data={chartData} />
             )}
         </div>
     );
