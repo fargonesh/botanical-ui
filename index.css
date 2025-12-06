@@ -1,3 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Space Grotesk", sans-serif;
+  --font-serif: "Cinzel", serif;
+  --font-mono: "Space Mono", monospace;
+  
+  --color-bio-black: var(--bio-ink);
+  --color-bio-white: var(--bio-paper);
+  --color-bio-primary: var(--bio-primary);
+  --color-bio-secondary: var(--bio-secondary);
+  --color-bio-accent: var(--bio-accent);
+  --color-bio-red: var(--bio-red);
+  --color-bio-green: var(--bio-green);
+  --color-bio-gray: var(--bio-gray);
+  
+  --animate-marquee: marquee 25s linear infinite;
+  --animate-spin-slow: spin 8s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* CSS Variables */
+:root {
+  --bio-ink: #0a0a0a;
+  --bio-paper: #f4f1ea;
+  --bio-primary: #ff3300;
+  --bio-secondary: #ccff00;
+  --bio-accent: #ff6b6b;
+  --bio-gray: #e5e5e5;
+  /* Legacy names for backwards compatibility */
+  --bio-red: #ff3300;
+  --bio-green: #ccff00;
+}
+
+/* Custom Dither Effect Class */
+.dither-img {
+  filter: grayscale(100%) contrast(120%);
+  mix-blend-mode: multiply;
+}
+
+body {
+  /* background-color: var(--bio-paper); */
+  background-image: url("./images/gradient.webp");
+  background-position: center;
+  background-size: cover;
+  color: var(--bio-ink);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hide scrollbar for clean aesthetic */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Syntax Highlighting Theme - Botanical Dark Mode */
 
 .hljs {
